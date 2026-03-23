@@ -1,0 +1,7 @@
+{
+  "name": "Pousada Premium - Reservas & Atendimento",
+  "description": "Site profissional para pousada com motor de reservas online, chatbot inteligente e gestão de hospedagem.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "entities": {
+    "Room": {
+      "title": "Room",
+      "description": "Acomodação disponível na pousada",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "capacity": { "type": "integer" },
+        "basePrice": { "type": "number" },
+        "amenities": { "type": "array", "items": { "type": "string" } },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["active", "inactive"] }
+      },
+      "required": ["name", "capacity", "basePrice", "status"]
+    },
+    "Reservation": {
+      "title": "Reservation",
+      "description": "Reserva de hospedagem",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "roomId": { "type": "string" },
+        "userId": { "type": "string" },
+        "guestName": { "type": "string" },
+        "guestEmail": { "type": "string" },
+        "guestPhone": { "type": "string" },
+        "checkIn": { "type": "string", "format": "date-time" },
+        "checkOut": { "type": "string", "format": "date-time" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "finished"] },
+        "paymentStatus": { "type": "string", "enum": ["unpaid", "paid", "partially_paid"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["roomId", "guestName", "guestEmail", "checkIn", "checkOut", "totalAmount", "status"]
+    },
+    "FAQ": {
+      "title": "FAQ",
+      "description": "Perguntas frequentes para o chatbot",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "question": { "type": "string" },
+        "answer": { "type": "string" },
+        "category": { "type": "string" }
+      },
+      "required": ["question", "answer"]
+    },
+    "User": {
+      "title": "User",
+      "description": "Usuário do sistema",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "guest"] }
+      },
+      "required": ["email", "role"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Configurações gerais da pousada",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "phone": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "policies": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/rooms/{roomId}": { "schema": "Room", "description": "Coleção de quartos" },
+    "/reservations/{reservationId}": { "schema": "Reservation", "description": "Coleção de reservas" },
+    "/faqs/{faqId}": { "schema": "FAQ", "description": "Coleção de FAQs" },
+    "/users/{userId}": { "schema": "User", "description": "Coleção de usuários" },
+    "/settings/general": { "schema": "Settings", "description": "Configurações globais" }
+  }
+}
